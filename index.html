@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ubot — UNKLAB AI Portal</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="folder_css/style (2).css">
+
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,id'}, 'google_translate_element');
+    }
+  </script>
+
+</head>
+<body>
+  <!-- LANDING -->
+  <section id="landing" class="card-glass">
+
+    <div style="max-width:1100px; display:flex; gap:28px; align-items:center; flex-wrap:wrap;">
+      <div style="flex:1;">
+        <h1 style="color:var(--purple)">Discover UNKLAB more closely with <strong>Ubot</strong></h1>
+        <p class="small-muted">Ubot — your personal AI assistant for UNKLAB students. Fast, private, and exclusive.</p>
+
+        <div class="mt-3">
+          <!-- HANYA INI yang kamu pakai -->
+          <button id="btnGotoLogin" class="btn btn-lg btn-primary btn-rounded me-2">Login Now</button>
+          <button id="btnDemo" class="btn btn-outline-primary btn-rounded">Demo Dashboard</button>
+        </div>
+
+        <p class="small-muted mt-3">© 2025 Universitas Klabat — Ubot System</p>
+      </div>
+
+      <div style="width:300px;">
+        <div class="card-glass text-center">
+          <img id="heroUbotLogo" src="folder asset/ubotlogo.white.png" alt="Ubot" style="width:120px;height:120px;border-radius:12px;object-fit:contain;margin-bottom:10px;">
+          <p class="small-muted">Project: Ubot — Group 2</p>
+        </div>
+      </div>
+
+    </div>
+
+</section>
+
+<!-- Google Translate Widget -->
+<div id="google_translate_element" style="position:fixed; top:10px; right:10px; z-index:1000;"></div>
+
+  <!-- LOGIN -->
+  <section id="loginView" class="hidden">
+    <div class="card-glass" style="max-width:420px; width:100%;">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div><h4>Ubot — Login</h4><small class="small-muted">Use your UNKLAB student email</small></div>
+        <img id="loginUnklabLogo" src="folder_asset/IMG_0518.PNG" alt="unklab" class="top-logo">
+      </div>
+
+      <form id="loginForm">
+  <div class="mb-2">
+    <label class="form-label">UNKLAB Email</label>
+    <input id="loginEmail" type="email" class="form-control" placeholder="...@student.unklab.ac.id" required>
+  </div>
+
+  <div class="mb-2">
+    <label class="form-label">Nama (tampil)</label>
+    <input id="loginName" type="text" class="form-control" placeholder="Nama lengkap">
+  </div>
+
+  <div class="mb-2 d-flex gap-2">
+    <input id="loginNim" type="text" class="form-control" placeholder="NIM (opsional)">
+    <input id="loginMajor" type="text" class="form-control" placeholder="Jurusan (opsional)">
+  </div>
+
+  <div class="d-grid mt-2">
+    <button class="btn btn-primary btn-rounded" type="submit">
+      Login
+    </button>
+  </div>
+
+  <p class="small-muted mt-2">Belum punya? Hubungi admin kampus.</p>
+</form>
+
+    </div>
+  </section>
+
+  <!-- APP (Sidebar + Content) -->
+  <div id="appRoot" class="app hidden" aria-hidden="true">
+    <aside class="sidebar" role="navigation" aria-label="Sidebar">
+      <div class="d-flex align-items-center mb-3">
+        <img id="sidebarLogo" class="logo-small me-2" src="folder_asset/ubotlogo.white.png" alt="Ubot logo">
+      </div>
+
+      <div class="d-flex gap-2 align-items-center mb-3">
+        <img id="sidebarAvatar" class="avatar-mini" src="https://ui-avatars.com/api/?name=Guest&background=6f42c1&color=fff" alt="avatar">
+        <div style="flex:1">
+          <div id="sideUser" style="font-weight:600">Guest</div>
+          <div class="small-muted" style="font-size:0.85rem" id="sideEmail"> </div>
+        </div>
+      </div>
+
+      <nav id="navMain" class="d-flex flex-column" aria-label="Main navigation">
+        <a href="#home" class="nav-link text-white active" data-page="home"><i class="bi bi-house"></i> Home</a>
+        <a href="#profile" class="nav-link text-white" data-page="profile"><i class="bi bi-person"></i> Profile</a>
+        <a href="#chat" class="nav-link text-white" data-page="chat"><i class="bi bi-chat-dots"></i> Chatbot</a>
+        <a href="#about" class="nav-link text-white" data-page="about"><i class="bi bi-info-circle"></i> About</a>
+        <a href="#settings" class="nav-link text-white" data-page="settings"><i class="bi bi-gear"></i> Settings</a>
+      </nav>
+
+      <div style="margin-top:auto">
+        <div class="small-muted" id="signin">Signed in as</div>
+        <div style="font-weight:600" id="sideUserBottom">Guest</div>
+        <div class="mt-3">
+          <button id="btnLogout" class="btn btn-sm btn-light w-100"><i class="bi bi-box-arrow-right"></i> Logout</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="content" role="main">
+      <!-- HOME -->
+      <section id="page-home" class="card-glass page" aria-labelledby="homeHeading">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+          <div>
+            <h3 id="homeHeading">Welcome to Ubot, <span id="displayName">Mahasiswa</span> 👋</h3>
+            <p class="small-muted">Ask Ubot anything about UNKLAB.</p>
+          </div>
+          <div>
+            <button id="btnToggleInfoPanel" class="btn btn-primary btn-rounded"><i class="bi bi-list"></i> View Data</button>
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-md-7">
+            <div class="card-glass mb-3">
+              <h6>Users per day (last 7 days)</h6>
+              <canvas id="chartUsage"></canvas>
+              <div class="mt-2 small-muted">This data resets automatically each week.</div>
+            </div>
+
+            <div class="card-glass mb-3">
+              <h6>Quick Prompts</h6>
+              <div class="d-flex gap-2 flex-wrap">
+                <button class="btn btn-sm btn-outline-primary quick">Fasilitas kampus</button>
+                <button class="btn btn-sm btn-outline-primary quick">Pembayaran kuliah</button>
+                <button class="btn btn-sm btn-outline-primary quick">Kalender akademik</button>
+                <button class="btn btn-sm btn-outline-primary quick">Informasi asrama</button>
+              </div>
+            </div>
+
+            <div class="card-glass">
+              <h6>Ask Ubot</h6>
+              <div class="input-group">
+                <input id="homeAsk" class="form-control" placeholder="Ask Ubot anything about UNKLAB..." />
+                <button id="homeAskBtn" class="btn btn-primary"><i class="bi bi-send"></i></button>
+              </div>
+            </div>
+
+            <!-- CONTACT IMPORTANT: placed under main column -->
+            <div class="card-glass mt-3">
+              <h6>Kontak Penting UNKLAB</h6>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item bg-transparent">
+                  <strong>📍 Alamat Kampus</strong><br>
+                  <a class="contact-link" target="_blank" href="https://www.google.com/maps/search/Universitas+Klabat">Universitas Klabat, Airmadidi, Minahasa Utara</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                  <strong>☎️ Telepon</strong><br>
+                  <a class="contact-link" href="tel:+62431891123">+62 431 891 123</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                  <strong>🌐 Website</strong><br>
+                  <a class="contact-link" href="https://unklab.ac.id" target="_blank">unklab.ac.id</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                  <strong>📧 Email</strong><br>
+                  <a class="contact-link" href="mailto:admin@unklab.ac.id">admin@unklab.ac.id</a>
+                </li>
+                <li class="list-group-item bg-transparent">
+                  <strong>⏰ Jam Operasional</strong><br>
+                  <a class="contact-link" href="https://unklab.ac.id" target="_blank">Senin - Jumat, 08:00 - 16:00</a>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+
+          <div class="col-md-5">
+            <div id="infoPanel" class="card-glass mb-3 hidden">
+              <h6>Campus Info</h6>
+              <div class="accordion" id="accInfo">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acad">Academic</button>
+                  </h2>
+                  <div id="acad" class="accordion-collapse collapse" data-bs-parent="#accInfo">
+                    <div class="accordion-body">
+                      <p class="small-muted">Kalender akademik & tips pengisian KRS.</p>
+                      <button class="btn btn-sm btn-outline-primary ask-section" data-q="Bagaimana cara mengisi KRS?">Ask Ubot</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#adm">Administration</button>
+                  </h2>
+                  <div id="adm" class="accordion-collapse collapse" data-bs-parent="#accInfo">
+                    <div class="accordion-body">
+                      <p class="small-muted">Pembayaran, registrasi.</p>
+                      <button class="btn btn-sm btn-outline-primary ask-section" data-q="Bagaimana cara bayar SPP?">Ask Ubot</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dorm">Dormitory</button>
+                  </h2>
+                  <div id="dorm" class="accordion-collapse collapse" data-bs-parent="#accInfo">
+                    <div class="accordion-body">
+                      <p class="small-muted">Info tata tertib asrama.</p>
+                      <button class="btn btn-sm btn-outline-primary ask-section" data-q="Apa syarat tinggal di asrama?">Ask Ubot</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#fac">Facilities</button>
+                  </h2>
+                  <div id="fac" class="accordion-collapse collapse" data-bs-parent="#accInfo">
+                    <div class="accordion-body">
+                      <p class="small-muted">Perpustakaan, lab, kafetaria.</p>
+                      <button class="btn btn-sm btn-outline-primary ask-section" data-q="Dimana perpustakaan?">Ask Ubot</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-glass mb-3">
+              <h6>Contact</h6>
+              <p class="small-muted mb-0">Admin: <a class="contact-link" href="mailto:admin@unklab.ac.id">admin@unklab.ac.id</a></p>
+              <p class="small-muted">IT Support: <a class="contact-link" href="mailto:it-support@unklab.ac.id">it-support@unklab.ac.id</a></p>
+            </div>
+
+            <div class="card-glass">
+              <h6>Stats</h6>
+              <p class="small-muted mb-1">Total chats today: <span id="statToday">0</span></p>
+              <p class="small-muted mb-0">Active users (sim): 34</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROFILE -->
+      <section id="page-profile" class="card-glass page hidden" aria-labelledby="profileHeading">
+        <div class="d-flex gap-3 align-items-center mb-3">
+          <div style="position:relative;">
+            <img id="profileAvatar" src="" alt="avatar" style="width:110px;height:110px;border-radius:12px;object-fit:cover;border:2px solid rgba(0,0,0,0.06);">
+            <label for="uploadAvatar" style="position:absolute;right:-6px;bottom:-6px;cursor:pointer">
+              <span class="btn btn-sm btn-primary rounded-circle" title="Upload foto"><i class="bi bi-camera"></i></span>
+            </label>
+            <input id="uploadAvatar" type="file" accept="image/*" style="display:none">
+          </div>
+
+          <div>
+            <h4 id="pName">Nama Mahasiswa</h4>
+            <p id="pEmail" class="small-muted">email@student.unklab.ac.id</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <ul class="list-group">
+              <li class="list-group-item">NIM: <strong id="pNim">-</strong></li>
+              <li class="list-group-item">Registration No: <strong id="pReg">-</strong></li>
+              <li class="list-group-item">Major: <strong id="pMajor">-</strong></li>
+              <li class="list-group-item">Year: <strong id="pYear">-</strong></li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <p class="small-muted">Profil dapat diperbarui di versi berikutnya.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CHAT -->
+      <section id="page-chat" class="card-glass page hidden" aria-labelledby="chatHeading">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div><h5 id="chatHeading">Ubot 🤖</h5><p class="small-muted">Chat with Ubot — exclusive to UNKLAB students</p></div>
+          <div class="d-flex gap-2">
+            <button id="btnNewChat" class="btn btn-sm btn-outline-light"><i class="bi bi-plus-lg"></i> New</button>
+            <button id="btnExport" class="btn btn-sm btn-outline-light"><i class="bi bi-download"></i> Export</button>
+          </div>
+        </div>
+
+        <div class="chat-window" role="region" aria-label="Chat window">
+          <div id="chatMessages" class="chat-messages" aria-live="polite"></div>
+          <div class="chat-input">
+            <input id="chatBoxInput" class="form-control" placeholder="Tulis pesan untuk Ubot..." aria-label="Chat message">
+            <button id="btnSend" class="btn btn-primary" title="Kirim (Enter)"><i class="bi bi-send-fill"></i></button>
+          </div>
+        </div>
+
+        <div class="card-glass mt-3">
+          <h6>History</h6>
+          <input id="histSearch" class="form-control mb-2" placeholder="Search history..." />
+          <div id="historyList" style="max-height:160px; overflow:auto;"></div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="page-about" class="card-glass page hidden">
+        <h5>About Ubot</h5>
+        <p class="small-muted">Ubot helps UNKLAB students access campus information quickly using AI tech.</p>
+
+        <div class="card-glass mb-3">
+          <h6>About Us</h6>
+          <p>Ubot (Unklabot) adalah AI chatbot resmi Universitas Klabat (UNKLAB) yang dirancang khusus untuk membantu para mahasiswa, terutama mahasiswa baru (MABA) dalam mengakses informasi kampus dengan cepat dan mudah.</p>
+          <p>Dibangun dengan teknologi kecerdasan buatan terbaru, Ubot hadir sebagai asisten digital yang membantu menjawab pertanyaan seputar kampus dan mempermudah akses ke berbagai layanan mahasiswa.</p>
+          <p>Lebih dari sekadar chatbot, Ubot adalah wujud komitmen UNKLAB untuk menghadirkan inovasi digital yang ramah, praktis, dan mendukung kebutuhan mahasiswa dalam kehidupan kampus sehari-hari.</p>
+          <blockquote class="muted-contrast">"Membawa kecerdasan buatan lebih dekat ke lingkungan akademik UNKLAB."</blockquote>
+
+          <h6>Background</h6>
+          <p>Ubot lahir dari ide mahasiswa Universitas Klabat yang melihat kebutuhan akan sistem informasi kampus yang lebih responsif bagi mahasiswa, terutama MABA yang sering kesulitan menemukan informasi dengan cepat.</p>
+          <p>Dari kebutuhan itu, muncul gagasan untuk membuat chatbot berbasis AI yang mampu memberikan jawaban otomatis, interaktif, dan relevan dengan kehidupan kampus.</p>
+          <p>Melalui kolaborasi lintas bidang antara teknologi, komunikasi, dan pendidikan, Ubot menjadi asisten digital pertama di UNKLAB yang dirancang khusus untuk mendukung mahasiswa dalam beradaptasi dan menjalani aktivitas kampus.</p>
+          <p>Pengembangannya terus berlanjut agar Ubot semakin mudah diakses, lebih personal, dan semakin membantu kebutuhan mahasiswa kapan saja.</p>
+        </div>
+
+        <div class="card-glass">
+          <h6>Tim Pembuat</h6>
+          <div class="row">
+            <div class="col-md-6 col-lg-3 text-center mb-3">
+              <img src="https://ui-avatars.com/api/?name=Samuel+Given&background=6f42c1&color=fff" class="img-fluid mb-2 team-photo" style="height:120px;object-fit:cover;border-radius:8px;">
+              <div><strong>Anasim, Samuel Given</strong></div>
+              <div class="small-muted">Peran: Lead Developer</div>
+              <div class="small-muted">Informatika — angkatan 2024</div>
+              <div class="small-muted">IG: @given_ell</div>
+              <div class="small-muted">Email: 12410469@student.unklab.ac.id</div>
+            </div>
+            <div class="col-md-6 col-lg-3 text-center mb-3">
+              <img src="https://placehold.co/400x300?text=Member+2" class="img-fluid mb-2 team-photo" style="height:120px;object-fit:cover;border-radius:8px;">
+              <div><strong>Maruru, Aria Dion Andikha</strong></div>
+              <div class="small-muted">Peran: Lead Developer</div>
+              <div class="small-muted">Sistem Informasi — angkatan 2023</div>
+              <div class="small-muted">IG: _arrzzzz</div>
+              <div class="small-muted">Email: s22210127@student.unklab.ac.id</div>
+              
+            </div>
+            <div class="col-md-6 col-lg-3 text-center mb-3">
+              <img src="https://placehold.co/400x300?text=Member+3" class="img-fluid mb-2 team-photo" style="height:120px;object-fit:cover;border-radius:8px;">
+              <div><strong>Gledial Ribka Tewu</strong></div>
+              <div class="small-muted">Peran: Lead Developer</div>
+              <div class="small-muted">Informatika — angkatan 2024</div>
+              <div class="small-muted">IG:  t.gledial</div>
+              <div class="small-muted">Email: 12410433@student.unklab.ac.id</div>
+            
+            </div>
+            <div class="col-md-6 col-lg-3 text-center mb-3">
+              <img src="https://placehold.co/400x300?text=Member+4" class="img-fluid mb-2 team-photo" style="height:120px;object-fit:cover;border-radius:8px;">
+              <div><strong>Nadya Tatiana Shellin Nayoan</strong></div>
+              <div class="small-muted">Peran: Lead Developer</div>
+              <div class="small-muted">Akuntansi — angkatan 2022</div>
+              <div class="small-muted">IG: nayoots</div>
+              <div class="small-muted">Email: s22210011@student.unklab.ac.id</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section id="page-settings" class="card-glass page hidden">
+        <h5>Settings</h5>
+        <div class="form-check form-switch my-2">
+          <input class="form-check-input" type="checkbox" id="switchDark">
+          <label class="form-check-label" for="switchDark">Dark Mode</label>
+        </div>
+        <div class="mt-3">
+          <button id="btnResetHistory" class="btn btn-outline-danger me-2"><i class="bi bi-trash"></i> Reset Chat History</button>
+          <button id="btnLogout2" class="btn btn-outline-secondary"><i class="bi bi-box-arrow-right"></i> Logout</button>
+        </div>
+      </section>
+
+      <!-- 404 -->
+      <section id="page-404" class="card-glass page hidden text-center">
+        <h2>Oops! This page got lost in the UNKLAB forest 🌲😅</h2>
+        <p class="small-muted">Click below to return to Home.</p>
+        <button id="btnBackHome" class="btn btn-primary">Back to Home</button>
+      </section>
+    </main>
+  </div>
+
+  <!-- Confirm modal -->
+  <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body" id="confirmText">Are you sure?</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button id="confirmOk" class="btn btn-primary">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="folder_js/script.js"></script>
+
+</body>
+</html>
