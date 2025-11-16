@@ -1,0 +1,131 @@
+:root{
+  --purple: #6f42c1;
+  --purple-2: #8b5cf6;
+  --muted-light: #6c757d;
+  --muted-dark: #cbd5ff;
+  --bg-light: linear-gradient(135deg,#f6f1fb 0%, #fff 100%);
+  --bg-dark: linear-gradient(135deg,#0f0b13 0%, #2a1538 100%);
+  --glass-light: rgba(255,255,255,0.9);
+  --glass-dark: rgba(0,0,0,0.45);
+}
+
+/* Base */
+html,body { height:100%; }
+body{
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  margin:0; min-height:100vh;
+  background: var(--bg-light);
+  color: #111;
+  --muted: var(--muted-light);
+  --card-bg: var(--glass-light);
+  --glass: rgba(255,255,255,0.06);
+  transition: background .25s ease, color .25s ease;
+}
+.dark-mode {
+  background: var(--bg-dark);
+  color: #eef2ff;
+  --muted: var(--muted-dark);
+  --card-bg: var(--glass-dark);
+  --glass: rgba(255,255,255,0.03);
+}
+
+/* Layout */
+.app { display:flex; gap:24px; min-height:100vh; }
+.sidebar {
+  width:260px; padding:20px; position:fixed; left:0; top:0; bottom:0;
+  background: linear-gradient(180deg, rgba(111,66,193,0.95), rgba(139,92,246,0.95));
+  color:#fff; box-shadow:4px 0 24px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sidebar img.logo-small { width:100px;height:100px;border-radius:8px;object-fit:contain; }
+.sidebar .avatar-mini { width:46px;height:46px;border-radius:10px;object-fit:cover;border:2px solid rgba(255,255,255,0.12); }
+
+.sidebar .small-muted,
+.sidebar #sideEmail,
+.sidebar #sideUserBottom {
+  color: rgba(255,255,255,0.9) !important;
+  font-size: 0.75rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.content { margin-left:300px; padding:28px; width:calc(100% - 300px); }
+
+.card-glass {
+  background: var(--card-bg);
+  border-radius:12px;
+  padding:16px;
+  box-shadow:0 6px 18px rgba(20,20,30,0.06);
+  color:inherit;
+  border: 2px solid rgba(0,0,0,0.1);
+}
+
+.small-muted{ color: var(--muted); }
+
+/* Chat */
+.chat-window { display:flex; flex-direction:column; height:75vh; border-radius:10px; overflow:hidden; }
+.chat-messages { flex:1; padding:14px; overflow-y:auto; background: linear-gradient(180deg, rgba(0,0,0,0.02), transparent); }
+.chat-input { padding:12px; background:var(--glass); display:flex; gap:8px; align-items:center; position:relative; }
+.msg{ width: fit-content; max-width:95%; padding:10px 14px; border-radius:12px; margin-bottom:10px; word-wrap:break-word; position:relative; }
+.msg.user{ margin-left:auto; background: linear-gradient(90deg,var(--purple-2), var(--purple)); color:#fff; border-bottom-right-radius:4px; }
+.msg.bot{ margin-right:auto; background: rgba(255,255,255,0.08); color:inherit; border-bottom-left-radius:4px; }
+.msg .copy-btn { position:absolute; top:5px; right:5px; background:none; border:none; color:rgba(255,255,255,0.7); font-size:0.8rem; cursor:pointer; display:none; }
+.msg:hover .copy-btn { display:block; }
+.chat-history-toggle { position:absolute; top:-30px; right:10px; background:var(--card-bg); border-radius:5px; padding:5px 10px; cursor:pointer; font-size:0.9rem; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+.chat-history { max-height:200px; overflow-y:auto; background:var(--card-bg); border-radius:10px; margin-top:10px; display:none; }
+
+/* Landing / Login */
+#landing, #loginView { min-height:100vh; display:flex; align-items:center; justify-content:center; gap:24px; padding:32px; }
+#landing { background: url('folder asset/unklab-bg2.jpg') no-repeat center center fixed; background-size: cover; position: relative; }
+#landing::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(255, 253, 255, 0.9), rgba(139, 92, 246, 0.3)); z-index: -1; }
+#landing .card-glass { background: linear-gradient(180deg, rgba(111,66,193,0.95), rgba(139,92,246,0.95)); color: #fff; border: none; }
+#landing .card-glass img { width: 40px; height: 40px; }
+#landing .card-glass .small-muted { color: rgba(255,255,255,0.9) !important; }
+.hidden{ display:none !important; }
+
+/* Buttons and utilities */
+.btn-rounded { border-radius:10px; }
+.nav-link.active { background: rgba(0,0,0,0.12); border-radius:8px; }
+.nav-link { margin-bottom: 8px; }
+.top-logo { width:50px; height:50px; object-fit:cover; border-radius:6px; }
+
+/* responsive */
+@media (max-width: 900px){
+  .sidebar{ position:relative; width:100%; display:flex; flex-direction:row; gap:12px; padding:10px; overflow:auto; }
+  .content{ margin-left:0; padding:16px; width:100%; }
+  .app{ flex-direction:column; }
+  .chat-window{ height:46vh; }
+  #landing { background-attachment: scroll; }
+  #landing, #loginView { padding:16px; }
+  .sidebar img.logo-small { width:60px; height:60px; }
+  .top-logo { width:50px; height:50px; }
+  .card-glass { padding:12px; }
+  .btn { font-size: 0.9rem; padding: 0.5rem 1rem; }
+  .nav-link { font-size: 0.9rem; padding: 0.5rem; }
+  .form-control { font-size: 0.9rem; }
+  .msg { font-size: 0.9rem; padding: 8px 12px; }
+  h1 { font-size: 1.5rem; }
+  h3 { font-size: 1.2rem; }
+  h4 { font-size: 1.1rem; }
+  h5 { font-size: 1rem; }
+  h6 { font-size: 0.9rem; }
+  .small-muted { font-size: 0.8rem; }
+}
+
+/* small tweaks */
+canvas { width:100% !important; height:220px !important; }
+.contact-link { text-decoration:none; color:inherit; }
+.contact-link:hover { text-decoration:underline; color:var(--purple); }
+a.contact-link:active { color: var(--purple-2); }
+.muted-contrast { opacity:0.85; color:var(--muted); }
+
+/* make all text readable on both modes */
+.card-glass, input.form-control, .list-group-item { color: inherit; }
+.nav-link { color: #fff !important; }
+
+/* Profile page text visibility in dark mode */
+#page-profile .card-glass p, #page-profile .card-glass span, #page-profile .card-glass div, #page-profile .card-glass strong { color: #111 !important; }
+.dark-mode #page-profile .card-glass p, .dark-mode #page-profile .card-glass span, .dark-mode #page-profile .card-glass div, .dark-mode #page-profile .card-glass strong { color: #eef2ff !important; }
+.dark-mode #page-profile .list-group-item { color: #eef2ff !important; background-color: rgba(0,0,0,0.3) !important; }
