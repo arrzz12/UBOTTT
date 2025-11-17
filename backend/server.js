@@ -39,7 +39,7 @@ app.post("/api/chat", async (req, res) => {
         Tugasmu menjawab berdasarkan data berikut:
 
         DATA UNKLAB:
-        ${JSON.stringify(data).slice(0, 3000)}
+        ${JSON.stringify(data).slice(0, 10000)}
 
         - Jangan berhalusinasi
         - Jika jawaban tidak ada di data, jawab dengan sopan: "Data tersebut tidak tersedia."
@@ -71,3 +71,4 @@ app.post("/api/chat", async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+
